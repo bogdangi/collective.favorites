@@ -31,6 +31,7 @@ class BaseFavoriteActions(BrowserView):
                 type='uid',
                 view=view,
                 date=datetime.now())
+        self.context.reindexObject()
 
     def remove(self):
         mtool = getToolByName(self.context, 'portal_membership')
@@ -39,6 +40,7 @@ class BaseFavoriteActions(BrowserView):
         site = getNavigationRootObject(self.context, portal)
         IFavoriteStorage(site).remove_favorite(user.getId(),
                                                IUUID(self.context))
+        self.context.reindexObject()
 
 
 class FavoriteActions(BaseFavoriteActions):
